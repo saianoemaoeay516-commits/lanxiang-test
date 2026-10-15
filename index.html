@@ -3,81 +3,122 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>测测你在《兰香如故》里是谁</title>
+<title>测测你在兰香如故里是谁</title>
 <style>
   * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
   body {
-    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
-    background: linear-gradient(160deg, #1a1410 0%, #2d1f1a 50%, #1a1410 100%);
-    color: #f5ede3; min-height:100vh; padding:20px;
+    font-family:"Songti SC","STSong","SimSun","PingFang SC",serif;
+    background:#f7f3eb; color:#3a3229;
+    min-height:100vh; padding:24px 18px 40px;
+    position:relative; overflow-x:hidden;
   }
-  .wrap { max-width:520px; margin:0 auto; }
+  .bg-orchid { position:fixed; pointer-events:none; opacity:0.07; z-index:0; }
+  .bg-orchid-top { top:-20px; left:-30px; width:220px; }
+  .bg-orchid-bottom { bottom:-30px; right:-40px; width:260px; transform:rotate(180deg); }
+  .wrap { max-width:520px; margin:0 auto; position:relative; z-index:1; }
   .card {
-    background: rgba(255,248,240,0.06);
-    border: 1px solid rgba(212,175,120,0.25);
-    border-radius:18px; padding:24px 20px; margin-bottom:16px;
-    backdrop-filter: blur(8px);
+    background:#ffffff; border:1px solid #e8e2d5;
+    border-radius:14px; padding:28px 22px; margin-bottom:16px;
+    box-shadow:0 2px 12px rgba(139,111,78,0.06);
+    position:relative;
   }
-  h1 { font-size:22px; text-align:center; margin-bottom:8px; color:#e8c88a; letter-spacing:1px; }
-  .sub { text-align:center; font-size:13px; color:#a89a88; margin-bottom:24px; line-height:1.6; }
-  .q-num { font-size:12px; color:#c9a86a; margin-bottom:10px; letter-spacing:1px; }
-  .q-text { font-size:17px; line-height:1.6; margin-bottom:18px; font-weight:600; }
+  h1 { font-size:22px; text-align:center; margin-bottom:10px; color:#5a6b4d; letter-spacing:2px; font-weight:700; }
+  .sub { text-align:center; font-size:13px; color:#8a8070; margin-bottom:26px; line-height:1.7; letter-spacing:0.5px; }
+  .start-icon { display:flex; justify-content:center; margin-bottom:16px; }
+  .q-num { font-size:12px; color:#a0845c; margin-bottom:12px; letter-spacing:2px; text-align:center; }
+  .q-text { font-size:17px; line-height:1.7; margin-bottom:22px; font-weight:600; color:#3a3229; }
   .opt {
     display:block; width:100%; text-align:left;
-    background: rgba(255,248,240,0.05);
-    border: 1px solid rgba(212,175,120,0.2);
-    border-radius:12px; padding:14px 16px; margin-bottom:10px;
-    color:#f0e6d8; font-size:15px; line-height:1.5;
-    cursor:pointer; transition: all .2s; font-family:inherit;
+    background:#faf8f3; border:1px solid #e8e2d5;
+    border-radius:10px; padding:15px 16px; margin-bottom:10px;
+    color:#3a3229; font-size:15px; line-height:1.55;
+    cursor:pointer; transition:all .2s; font-family:inherit;
   }
-  .opt:active { transform: scale(0.98); }
-  .opt.selected {
-    background: rgba(212,175,120,0.22);
-    border-color:#d4af78; color:#fff;
-  }
+  .opt:active { transform:scale(0.985); }
+  .opt.selected { background:#eef2e8; border-color:#5a6b4d; color:#3a4a30; }
   .btn {
     display:block; width:100%; padding:16px;
-    background: linear-gradient(135deg,#c9a86a,#a8843f);
-    border:none; border-radius:12px; color:#1a1410;
-    font-size:16px; font-weight:700; letter-spacing:1px;
-    cursor:pointer; font-family:inherit; margin-top:8px;
+    background:#5a6b4d; border:none; border-radius:10px;
+    color:#f7f3eb; font-size:16px; font-weight:700;
+    letter-spacing:2px; cursor:pointer; font-family:inherit; margin-top:10px;
+    transition:background .2s;
   }
-  .btn:disabled { opacity:0.35; cursor:not-allowed; }
-  .progress { height:4px; background:rgba(255,248,240,0.1); border-radius:2px; margin-bottom:20px; overflow:hidden; }
-  .progress-bar { height:100%; background:linear-gradient(90deg,#c9a86a,#e8c88a); width:0; transition: width .3s; }
-  /* 结果页 */
-  .result-name { font-size:26px; color:#e8c88a; text-align:center; margin-bottom:6px; letter-spacing:2px; }
-  .result-type { text-align:center; font-size:15px; color:#c9a86a; margin-bottom:18px; letter-spacing:1px; }
-  .tags { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-bottom:20px; }
-  .tag {
-    background: rgba(212,175,120,0.15); border:1px solid rgba(212,175,120,0.35);
-    border-radius:20px; padding:5px 14px; font-size:12px; color:#e8c88a;
-  }
-  .section-title { font-size:13px; color:#c9a86a; margin:18px 0 8px; letter-spacing:1px; border-left:3px solid #c9a86a; padding-left:10px; }
-  .section-text { font-size:14px; line-height:1.75; color:#ddd0c0; }
+  .btn:active { background:#4a5a3d; }
+  .progress { height:3px; background:#ece7db; border-radius:2px; margin-bottom:22px; overflow:hidden; }
+  .progress-bar { height:100%; background:linear-gradient(90deg,#a0845c,#5a6b4d); width:0; transition:width .3s; }
+  .result-card { padding-top:34px; }
+  .corner-orchid { position:absolute; width:44px; height:44px; opacity:0.55; pointer-events:none; }
+  .corner-tl { top:8px; left:8px; }
+  .corner-tr { top:8px; right:8px; transform:scaleX(-1); }
+  .corner-bl { bottom:8px; left:8px; transform:scaleY(-1); }
+  .corner-br { bottom:8px; right:8px; transform:scale(-1,-1); }
+  .result-orchid-top { display:flex; justify-content:center; margin-bottom:10px; }
+  .result-name { font-size:26px; color:#5a6b4d; text-align:center; margin-bottom:8px; letter-spacing:3px; font-weight:700; }
+  .result-type { text-align:center; font-size:14px; color:#a0845c; margin-bottom:16px; letter-spacing:1.5px; }
+  .result-orchid-mid { display:flex; justify-content:center; margin:6px 0 18px; }
+  .tags { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-bottom:22px; }
+  .tag { background:#eef2e8; border:1px solid #d4dcc8; border-radius:20px; padding:5px 14px; font-size:12px; color:#5a6b4d; letter-spacing:0.5px; }
   .fun-tag {
-    text-align:center; font-size:16px; color:#1a1410;
-    background: linear-gradient(135deg,#e8c88a,#c9a86a);
-    border-radius:12px; padding:14px; margin:20px 0; font-weight:700;
+    text-align:center; font-size:15px; color:#5a6b4d;
+    background:#f3f0e6; border:1px dashed #c9b88a;
+    border-radius:10px; padding:14px; margin:20px 0; font-weight:700; letter-spacing:1px;
   }
-  .share { text-align:center; font-size:13px; color:#a89a88; margin-top:16px; line-height:1.6; }
-  .restart { background:transparent; border:1px solid rgba(212,175,120,0.4); color:#c9a86a; margin-top:12px; }
+  .section-title {
+    font-size:13px; color:#a0845c; margin:20px 0 8px;
+    letter-spacing:1.5px; border-left:3px solid #a0845c;
+    padding-left:10px; font-weight:700;
+  }
+  .section-text { font-size:14px; line-height:1.8; color:#5a5245; }
+  .share {
+    text-align:center; font-size:13px; color:#8a8070;
+    margin-top:22px; line-height:1.7; letter-spacing:0.5px;
+  }
   .hidden { display:none; }
 </style>
 </head>
 <body>
+
+<svg class="bg-orchid bg-orchid-top" viewBox="0 0 200 200" fill="none" stroke="#5a6b4d" stroke-width="1.5">
+  <path d="M20 190 Q 60 120 100 60" stroke-linecap="round"/>
+  <path d="M40 190 Q 85 130 130 80" stroke-linecap="round" opacity="0.7"/>
+  <path d="M10 160 Q 55 100 90 40" stroke-linecap="round" opacity="0.5"/>
+  <path d="M100 60 Q 85 40 100 22 Q 115 40 100 60Z" fill="#5a6b4d" fill-opacity="0.3"/>
+  <path d="M100 60 Q 78 55 70 70 Q 88 72 100 60Z" fill="#5a6b4d" fill-opacity="0.25"/>
+  <path d="M100 60 Q 122 55 130 70 Q 112 72 100 60Z" fill="#5a6b4d" fill-opacity="0.25"/>
+  <path d="M100 60 Q 90 78 100 88 Q 110 78 100 60Z" fill="#5a6b4d" fill-opacity="0.35"/>
+</svg>
+<svg class="bg-orchid bg-orchid-bottom" viewBox="0 0 200 200" fill="none" stroke="#5a6b4d" stroke-width="1.5">
+  <path d="M20 190 Q 60 120 100 60" stroke-linecap="round"/>
+  <path d="M40 190 Q 85 130 130 80" stroke-linecap="round" opacity="0.7"/>
+  <path d="M10 160 Q 55 100 90 40" stroke-linecap="round" opacity="0.5"/>
+  <path d="M100 60 Q 85 40 100 22 Q 115 40 100 60Z" fill="#5a6b4d" fill-opacity="0.3"/>
+  <path d="M100 60 Q 78 55 70 70 Q 88 72 100 60Z" fill="#5a6b4d" fill-opacity="0.25"/>
+  <path d="M100 60 Q 122 55 130 70 Q 112 72 100 60Z" fill="#5a6b4d" fill-opacity="0.25"/>
+  <path d="M100 60 Q 90 78 100 88 Q 110 78 100 60Z" fill="#5a6b4d" fill-opacity="0.35"/>
+</svg>
+
 <div class="wrap">
 
-  <!-- 开始页 -->
   <div id="startPage">
     <div class="card">
+      <div class="start-icon">
+        <svg width="52" height="52" viewBox="0 0 60 60" fill="none" stroke="#5a6b4d" stroke-width="1.5">
+          <path d="M30 55 Q 30 35 30 20" stroke-linecap="round"/>
+          <path d="M30 30 Q 15 28 10 18" stroke-linecap="round"/>
+          <path d="M30 28 Q 45 26 50 16" stroke-linecap="round"/>
+          <path d="M30 20 Q 22 12 30 4 Q 38 12 30 20Z" fill="#5a6b4d" fill-opacity="0.25"/>
+          <path d="M30 20 Q 18 18 14 28 Q 24 30 30 20Z" fill="#5a6b4d" fill-opacity="0.2"/>
+          <path d="M30 20 Q 42 18 46 28 Q 36 30 30 20Z" fill="#5a6b4d" fill-opacity="0.2"/>
+          <path d="M30 20 Q 26 32 30 38 Q 34 32 30 20Z" fill="#5a6b4d" fill-opacity="0.3"/>
+          <circle cx="30" cy="20" r="2" fill="#a0845c"/>
+        </svg>
+      </div>
       <h1>测测你在《兰香如故》里是谁</h1>
-      <p class="sub">10 道题，测出你最像剧里哪个角色<br>别想太久，第一反应最准</p>
-      <button class="btn" onclick="startQuiz()">开始测试</button>
+      <p class="sub">14 道剧情抉择题<br>第一反应最准，别想太久</p>
+      <button class="btn" id="startBtn">开始测试</button>
     </div>
   </div>
 
-  <!-- 答题页 -->
   <div id="quizPage" class="hidden">
     <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
     <div class="card">
@@ -87,11 +128,69 @@
     </div>
   </div>
 
-  <!-- 结果页 -->
   <div id="resultPage" class="hidden">
-    <div class="card">
+    <div class="card result-card">
+
+      <svg class="corner-orchid corner-tl" viewBox="0 0 50 50" fill="none" stroke="#5a6b4d" stroke-width="1.2">
+        <path d="M5 45 Q 18 28 30 14" stroke-linecap="round"/>
+        <path d="M12 45 Q 25 30 38 18" stroke-linecap="round" opacity="0.7"/>
+        <path d="M30 14 Q 24 8 30 2 Q 36 8 30 14Z" fill="#5a6b4d" fill-opacity="0.3"/>
+        <path d="M30 14 Q 22 12 19 18 Q 26 20 30 14Z" fill="#5a6b4d" fill-opacity="0.25"/>
+        <path d="M30 14 Q 38 12 41 18 Q 34 20 30 14Z" fill="#5a6b4d" fill-opacity="0.25"/>
+        <circle cx="30" cy="14" r="1.5" fill="#a0845c"/>
+      </svg>
+      <svg class="corner-orchid corner-tr" viewBox="0 0 50 50" fill="none" stroke="#5a6b4d" stroke-width="1.2">
+        <path d="M5 45 Q 18 28 30 14" stroke-linecap="round"/>
+        <path d="M12 45 Q 25 30 38 18" stroke-linecap="round" opacity="0.7"/>
+        <path d="M30 14 Q 24 8 30 2 Q 36 8 30 14Z" fill="#5a6b4d" fill-opacity="0.3"/>
+        <path d="M30 14 Q 22 12 19 18 Q 26 20 30 14Z" fill="#5a6b4d" fill-opacity="0.25"/>
+        <path d="M30 14 Q 38 12 41 18 Q 34 20 30 14Z" fill="#5a6b4d" fill-opacity="0.25"/>
+        <circle cx="30" cy="14" r="1.5" fill="#a0845c"/>
+      </svg>
+      <svg class="corner-orchid corner-bl" viewBox="0 0 50 50" fill="none" stroke="#5a6b4d" stroke-width="1.2">
+        <path d="M5 45 Q 18 28 30 14" stroke-linecap="round"/>
+        <path d="M12 45 Q 25 30 38 18" stroke-linecap="round" opacity="0.7"/>
+        <path d="M30 14 Q 24 8 30 2 Q 36 8 30 14Z" fill="#5a6b4d" fill-opacity="0.3"/>
+        <path d="M30 14 Q 22 12 19 18 Q 26 20 30 14Z" fill="#5a6b4d" fill-opacity="0.25"/>
+        <path d="M30 14 Q 38 12 41 18 Q 34 20 30 14Z" fill="#5a6b4d" fill-opacity="0.25"/>
+        <circle cx="30" cy="14" r="1.5" fill="#a0845c"/>
+      </svg>
+      <svg class="corner-orchid corner-br" viewBox="0 0 50 50" fill="none" stroke="#5a6b4d" stroke-width="1.2">
+        <path d="M5 45 Q 18 28 30 14" stroke-linecap="round"/>
+        <path d="M12 45 Q 25 30 38 18" stroke-linecap="round" opacity="0.7"/>
+        <path d="M30 14 Q 24 8 30 2 Q 36 8 30 14Z" fill="#5a6b4d" fill-opacity="0.3"/>
+        <path d="M30 14 Q 22 12 19 18 Q 26 20 30 14Z" fill="#5a6b4d" fill-opacity="0.25"/>
+        <path d="M30 14 Q 38 12 41 18 Q 34 20 30 14Z" fill="#5a6b4d" fill-opacity="0.25"/>
+        <circle cx="30" cy="14" r="1.5" fill="#a0845c"/>
+      </svg>
+
+      <div class="result-orchid-top">
+        <svg width="46" height="46" viewBox="0 0 60 60" fill="none" stroke="#5a6b4d" stroke-width="1.5">
+          <path d="M30 55 Q 30 35 30 20" stroke-linecap="round"/>
+          <path d="M30 30 Q 15 28 10 18" stroke-linecap="round"/>
+          <path d="M30 28 Q 45 26 50 16" stroke-linecap="round"/>
+          <path d="M30 20 Q 22 12 30 4 Q 38 12 30 20Z" fill="#5a6b4d" fill-opacity="0.25"/>
+          <path d="M30 20 Q 18 18 14 28 Q 24 30 30 20Z" fill="#5a6b4d" fill-opacity="0.2"/>
+          <path d="M30 20 Q 42 18 46 28 Q 36 30 30 20Z" fill="#5a6b4d" fill-opacity="0.2"/>
+          <path d="M30 20 Q 26 32 30 38 Q 34 32 30 20Z" fill="#5a6b4d" fill-opacity="0.3"/>
+          <circle cx="30" cy="20" r="2" fill="#a0845c"/>
+        </svg>
+      </div>
+
       <div class="result-name" id="rName"></div>
       <div class="result-type" id="rType"></div>
+
+      <div class="result-orchid-mid">
+        <svg width="120" height="20" viewBox="0 0 120 20" fill="none" stroke="#5a6b4d" stroke-width="1.2">
+          <path d="M5 10 Q 25 10 55 10" stroke-linecap="round" opacity="0.6"/>
+          <path d="M65 10 Q 95 10 115 10" stroke-linecap="round" opacity="0.6"/>
+          <path d="M60 10 Q 54 4 60 0 Q 66 4 60 10Z" fill="#5a6b4d" fill-opacity="0.35"/>
+          <path d="M60 10 Q 52 8 50 12 Q 56 14 60 10Z" fill="#5a6b4d" fill-opacity="0.25"/>
+          <path d="M60 10 Q 68 8 70 12 Q 64 14 60 10Z" fill="#5a6b4d" fill-opacity="0.25"/>
+          <circle cx="60" cy="10" r="1.6" fill="#a0845c"/>
+        </svg>
+      </div>
+
       <div class="tags" id="rTags"></div>
       <div class="fun-tag" id="rFun"></div>
 
@@ -114,275 +213,151 @@
       <div class="section-text" id="rCopy"></div>
 
       <div class="share">截图发朋友圈，看看谁和你是一路人</div>
-      <button class="btn restart" onclick="location.reload()">再测一次</button>
     </div>
   </div>
 
 </div>
 
 <script>
-/* ========== 12 个人物数据 ========== */
-const CHARACTERS = {
-  xulanxiang: {
-    name:"许兰香 / 沈嘉兰", type:"逆风翻盘型人格",
-    tags:["坚韧","聪慧","隐忍","清醒"],
-    fun:"人间清醒·逆袭版",
-    pos:"表面不争，内心有数；不靠抱怨改变处境，而是靠能力和耐心拿回主动权。",
-    core:"心思细腻，观察力强，遇事不急着暴露底牌。她能体谅别人，但不会永远牺牲自己；善良是底色，清醒是保护自己的方式。",
-    love:"不只追求心动，更看重尊重、信任和实际行动。可以慢慢爱上一个人，但不会为了爱情放弃自我。",
-    work:"擅长从复杂环境中寻找突破口，先了解规则，再寻找改变规则的机会。适合策略、项目统筹、解决问题型工作。",
-    weak:"太习惯自己扛事，不愿轻易示弱。有时明明可以求助，却非要一个人把困难打通关。",
-    copy:"你属于那种开局被发了一手烂牌，却能默默研究规则、攒够筹码，最后把牌桌重新洗一遍的人。别人以为你在忍气吞声，其实你在收集证据、规划路线、等待时机。你最大的本事不是从不跌倒，而是每次跌倒之后，都更知道下一步怎么走。记住：你不需要永远坚强，也不必每次都独自通关。"
-  },
-  linjinqi: {
-    name:"林锦岐", type:"冷面理性型人格",
-    tags:["克制","责任","判断力","慢热"],
-    fun:"情绪已读，回复待审批",
-    pos:"外表冷静，内心有自己的衡量标准，习惯先权衡局势再做决定。",
-    core:"理性、自律、谨慎，重视责任与秩序。面对复杂局面，倾向于控制情绪、分析利弊。",
-    love:"慢热，不擅长及时表达。容易把责任和现实放在感情前面，但真正认定一个人后，会用行动承担责任。",
-    work:"先分析风险、再制定方案，适合管理、决策、谈判和需要承担责任的岗位。",
-    weak:"过度权衡容易错过时机；以为自己是在理性处理问题，别人却可能觉得你冷漠、不解释。",
-    copy:"你不是没有情绪，你只是习惯先把情绪放进文件夹，再处理眼前的问题。别人吵架靠提高音量，你靠沉默、分析和一句“这件事我们之后再谈”。你的可靠是真的，你的嘴硬也是真的。友情提醒：感情不是项目审批流程，有些话今天不说，明天可能就没有机会说了。"
-  },
-  zhaoxingtang: {
-    name:"赵星棠", type:"清醒自保型人格",
-    tags:["自尊","现实","独立","边界感"],
-    fun:"爱情可以暂停，存款不能停",
-    pos:"不轻易把人生寄托在别人身上，知道自己需要什么，也知道如何为自己留后路。",
-    core:"骄傲、敏锐、务实，有较强的自我保护意识。看得见现实的限制，也不愿轻易认输。",
-    love:"爱情不是人生的唯一答案。她需要尊重、体面和选择权，不愿只为了维持关系而委屈自己。",
-    work:"关注资源、利益和实际回报，善于为自己争取空间。适合商务、经营、谈判和资源协调。",
-    weak:"太害怕失去主动权时，可能把真心藏得太深；有时会把求助也看成一种示弱。",
-    copy:"你属于那种就算感情出了问题，也会先把自己的生活安排明白的人。别人还在问“他为什么不爱我”，你已经开始研究财务规划和未来路线。你不是不需要爱，而是不愿为了得到爱，连自己是谁都忘了。唯一需要注意的是：独立不是凡事都得自己扛，偶尔相信一个值得的人，并不会让你输掉人生。"
-  },
-  ducuique: {
-    name:"杜翠雀", type:"野心谋局型人格",
-    tags:["目标感","竞争","敏锐","胜负心"],
-    fun:"事业心开了八倍速",
-    pos:"不甘于现状，渴望改变自己的位置；目标越明确，行动越有方向。",
-    core:"有野心、竞争意识强，善于观察机会。她的故事也体现了当目标压过底线时，野心可能变成危险的执念。",
-    love:"容易把喜欢、认可与被选择联系在一起，既渴望亲密，也在意自己是不是那个“赢的人”。",
-    work:"目标导向，重视上升空间，善于发现机会。适合挑战性强、竞争机制清晰的环境。",
-    weak:"太想证明自己时，容易忽略长期信任与行为底线；把一次失败看成整个人生的失败。",
-    copy:"你不是没有野心，你是连休息的时候都觉得自己是不是落后了。别人说随缘，你心里已经列好了三年计划、五个备选方案和一个绝不告诉别人的终极目标。你的冲劲确实能带你走得很远，但别把所有人都当竞争对手。真正厉害的人，不只知道怎么赢，也知道哪些东西不值得拿来交换。"
-  },
-  xueguihua: {
-    name:"薛桂花", type:"温暖守护型人格",
-    tags:["善良","忠诚","担当","保护欲"],
-    fun:"全队指定家长",
-    pos:"不一定最会说漂亮话，却愿意在别人最需要帮助时站出来。",
-    core:"朴实、坚韧、重情义，愿意用实际行动保护重要的人。",
-    love:"看重陪伴、责任和患难中的支持。比起浪漫承诺，更相信日复一日的照顾。",
-    work:"踏实可靠，善于照顾团队、处理具体问题。适合需要耐心、责任感和协作的工作。",
-    weak:"容易把别人的需求放在自己前面，甚至觉得自己吃苦是理所当然。",
-    copy:"你可能不是朋友圈里最会讲道理的人，却往往是别人出事后第一个被想起来的人。你会记得朋友不吃什么，会在别人嘴硬说没事时多问一句，也会默默把麻烦处理好。你是很多人的安全感来源。不过请记住，你不是全天候免费客服。照顾别人很重要，照顾自己也不是自私。"
-  },
-  hanliang: {
-    name:"韩粱", type:"深情务实型人格",
-    tags:["专一","行动","上进","克制"],
-    fun:"深情不打烊，人生继续营业",
-    pos:"愿意认真对待感情，也能在现实受挫后继续走自己的路。",
-    core:"踏实、上进、重情义，愿意通过学习和行动改变处境。面对感情挫折，倾向于把精力重新放回人生目标。",
-    love:"认真、长情，喜欢一个人时愿意付出，但也需要学会接受并非所有感情都能如愿。",
-    work:"靠能力积累机会，重视长期发展，不太依赖投机取巧。适合需要持续学习、专业积累的岗位。",
-    weak:"容易把忍耐当作成熟，把遗憾独自消化；有时过于执着于“只要努力就能改变一切”。",
-    copy:"你是那种失恋以后会难过，但第二天还是照常上班、学习、努力生活的人。你不会轻易否定过去的真心，也不愿让一次遗憾毁掉整个人生。你最大的优点，是对感情认真、对未来负责；你的难题，是总觉得自己再努力一点，就能把所有事情都挽回来。记住，认真爱过不是失败，继续向前也不是背叛过去。"
-  },
-  linxiuwan: {
-    name:"林绣芄", type:"敏感成长型人格",
-    tags:["感性","在意评价","情感需求","成长"],
-    fun:"对方少回一个字，我能分析一晚上",
-    pos:"对周围人的态度比较敏感，容易被关系影响，但也有机会在经历中逐渐认清自己。",
-    core:"感受力强，重视亲近之人的评价。遇到不确定的事情，容易反复琢磨别人的话。",
-    love:"希望被重视、被肯定，容易因为对方的态度变化而患得患失。",
-    work:"在氛围友好、反馈清晰的团队中更容易发挥；受到鼓励时，往往更有动力。",
-    weak:"容易把别人的冷淡理解成自己的问题，也可能为了获得认可而改变原本的想法。",
-    copy:"你不是想太多，你只是大脑的情绪分析系统配置得特别齐全。对方一句“嗯”，你能推演出三种态度、五种原因和八个可能的结局。但别忘了，别人不高兴未必是你的错，别人不回复也不等于你不重要。你真正的成长，不是变得毫不在乎，而是终于能够在意别人，同时不丢掉自己。"
-  },
-  yuchan: {
-    name:"玉蝉", type:"环境观察型人格",
-    tags:["谨慎","适应力","观察","风险意识"],
-    fun:"全场还没开口，你已经看完局势了",
-    pos:"不急于出头，先观察环境和规则，再决定怎么行动。",
-    core:"谨慎细心，懂得根据环境调整自己的行为。面对陌生人和复杂局面，会先判断是否安全。",
-    love:"不轻易交出信任，更希望通过长期相处确认对方是否可靠。",
-    work:"擅长观察团队氛围、发现潜在风险、适应不同的工作方式。适合协调、支持和细节管理类工作。",
-    weak:"过度谨慎可能导致犹豫不决；总在观察别人，却忘了主动表达自己的需求。",
-    copy:"你进一个新群，别人忙着打招呼，你已经默默搞清楚谁最靠谱、谁爱甩锅、谁说话需要打八折。你不是胆小，只是习惯先确认地形再出发。你的观察力是优势，但也别把人生过成一场永不结束的风险评估。有时候，不必等到百分之百确定，也可以勇敢迈出第一步。"
-  },
-  linxiulai: {
-    name:"林绣莱", type:"温柔觉醒型人格",
-    tags:["温和","忍耐","边界","独立"],
-    fun:"嘴上说都行，心里已经开庭三次",
-    pos:"习惯顾及别人，但内心并不愿意永远退让；成长的关键是学会为自己作决定。",
-    core:"温和、顾全大局，容易考虑周围人的感受。遇到冲突时通常先忍耐，等到想清楚后才会表达立场。",
-    love:"希望关系稳定和谐，愿意为伴侣着想，但也需要学习分辨包容与委屈自己的区别。",
-    work:"合作意识强，愿意配合团队；当边界清晰时，能够成为稳定的协作者。",
-    weak:"容易把“大家都满意”当作自己的责任，直到忍无可忍才一次性爆发。",
-    copy:"你经常说“没关系”“都可以”“你决定就好”，但你的内心并不是真的没有想法。你只是太习惯让别人舒服，偶尔连自己都排到了最后。好消息是，你不需要突然变成一个强势的人才能改变生活。学会说一次“不”，表达一次真实想法，就是成长的开始。温柔可以保留，边界也应该拥有。"
-  },
-  xiaolian: {
-    name:"小莲", type:"快乐生活型人格",
-    tags:["知足","松弛","日常幸福","随和"],
-    fun:"人生 KPI：按时吃饭，准时下班",
-    pos:"不一定非要赢过所有人，更愿意珍惜生活里实实在在的小快乐。",
-    core:"重视当下体验，不愿把每一天都过成竞争。能够从日常生活中寻找乐趣。",
-    love:"比起惊天动地的浪漫，更喜欢舒服、自然、能一起吃饭聊天的关系。",
-    work:"喜欢目标明确、氛围友好、生活与工作相对平衡的环境。",
-    weak:"有时容易回避长期规划，遇到困难可能先想着躲一躲再说。",
-    copy:"别人忙着逆袭、升职、成为人生赢家，你先确认今天有没有好好吃饭。你并不是没有追求，只是知道人生不应该只有成绩单。能睡个好觉、和喜欢的人说说话、周末吃一顿满意的饭，对你而言都是值得认真对待的幸福。唯一要注意的是，松弛不等于逃避。该面对的问题，还是要找个合适的日子处理掉——不能一直等到下辈子。"
-  },
-  gantang: {
-    name:"甘棠", type:"自我觉醒型人格",
-    tags:["尊严","独立意识","自我认同","选择权"],
-    fun:"我的人生，不接受代写",
-    pos:"不愿永远按照别人的期待生活，逐渐学会表达真实的自己。",
-    core:"重视自我价值，不希望被身份、环境或他人的评价限制。面对不公平时，内心有争取改变的动力。",
-    love:"希望得到平等的尊重，而不是仅仅被需要。真正的亲密关系应该让双方都能做自己。",
-    work:"希望自己的努力被看见，也需要一定的自主空间。适合能够发挥个人能力、逐步积累独立性的环境。",
-    weak:"过于在意别人是否尊重自己时，可能把普通的意见分歧也理解成否定。",
-    copy:"你的人生可能经历过太多“别人觉得你应该怎样”，所以你越来越想知道自己真正想要什么。你不一定总是最勇敢的那个，但你正在学会不再把选择权全部交给别人。你可以听取建议，可以暂时妥协，但最终的人生方向应该由你自己决定。友情提醒：不必为了证明自己独立，就拒绝所有帮助。接受善意，也是一种自由。"
-  },
-  linxiushu: {
-    name:"林绣菽", type:"稳健自持型人格",
-    tags:["谨慎","秩序感","稳妥","风险控制"],
-    fun:"人生信条：能稳定运行，就别随便更新",
-    pos:"相比冒险和出风头，更倾向于在现有条件下寻找稳妥的解决办法。",
-    core:"偏稳健、重视秩序的人格类型。比起突然改变一切，更倾向于先了解情况，再做选择。",
-    love:"偏好稳定、可靠、说到做到的关系。比起短暂的激情，更看重长期相处是否安心。",
-    work:"擅长按步骤完成任务，重视流程和细节。适合执行、组织、资料管理与需要稳定性的工作。",
-    weak:"过度追求稳妥时，容易错过机会；有时因为害怕出错，而不敢尝试新的方法。",
-    copy:"你可能不是那个一拍桌子就要改变世界的人，但你很可能是团队里确保事情不会乱成一团的人。别人想一步登天，你先检查楼梯有没有装好；别人准备临时起意，你已经想到了三个风险预案。你的稳健是优势，但人生也不是每次更新都需要等到绝对安全。偶尔允许自己试错，你会发现，有些好机会本来就不会提前通知你。"
-  }
+var CHARACTERS = {
+  xulanxiang:{name:"许兰香 / 沈嘉兰",type:"逆风翻盘型人格",tags:["坚韧","聪慧","隐忍","清醒"],fun:"人间清醒·逆袭版",pos:"表面不争，内心有数；不靠抱怨改变处境，而是靠能力和耐心拿回主动权。",core:"心思细腻，观察力强，遇事不急着暴露底牌。她能体谅别人，但不会永远牺牲自己；善良是底色，清醒是保护自己的方式。",love:"不只追求心动，更看重尊重、信任和实际行动。可以慢慢爱上一个人，但不会为了爱情放弃自我。",work:"擅长从复杂环境中寻找突破口，先了解规则，再寻找改变规则的机会。",weak:"太习惯自己扛事，不愿轻易示弱。有时明明可以求助，却非要一个人把困难打通关。",copy:"你属于那种开局被发了一手烂牌，却能默默研究规则、攒够筹码，最后把牌桌重新洗一遍的人。别人以为你在忍气吞声，其实你在收集证据、规划路线、等待时机。你最大的本事不是从不跌倒，而是每次跌倒之后，都更知道下一步怎么走。记住：你不需要永远坚强，也不必每次都独自通关。"},
+  linjinqi:{name:"林锦岐",type:"冷面理性型人格",tags:["克制","责任","判断力","慢热"],fun:"情绪已读，回复待审批",pos:"外表冷静，内心有自己的衡量标准，习惯先权衡局势再做决定。",core:"理性、自律、谨慎，重视责任与秩序。面对复杂局面，倾向于控制情绪、分析利弊。",love:"慢热，不擅长及时表达。容易把责任和现实放在感情前面，但真正认定一个人后，会用行动承担责任。",work:"先分析风险、再制定方案，适合管理、决策、谈判和需要承担责任的岗位。",weak:"过度权衡容易错过时机；以为自己是在理性处理问题，别人却可能觉得你冷漠、不解释。",copy:"你不是没有情绪，你只是习惯先把情绪放进文件夹，再处理眼前的问题。别人吵架靠提高音量，你靠沉默、分析和一句这件事我们之后再谈。你的可靠是真的，你的嘴硬也是真的。友情提醒：感情不是项目审批流程，有些话今天不说，明天可能就没有机会说了。"},
+  zhaoxingtang:{name:"赵星棠",type:"清醒自保型人格",tags:["自尊","现实","独立","边界感"],fun:"爱情可以暂停，存款不能停",pos:"不轻易把人生寄托在别人身上，知道自己需要什么，也知道如何为自己留后路。",core:"骄傲、敏锐、务实，有较强的自我保护意识。看得见现实的限制，也不愿轻易认输。",love:"爱情不是人生的唯一答案。她需要尊重、体面和选择权，不愿只为了维持关系而委屈自己。",work:"关注资源、利益和实际回报，善于为自己争取空间。",weak:"太害怕失去主动权时，可能把真心藏得太深；有时会把求助也看成一种示弱。",copy:"你属于那种就算感情出了问题，也会先把自己的生活安排明白的人。别人还在问他为什么不爱我，你已经开始研究财务规划和未来路线。你不是不需要爱，而是不愿为了得到爱，连自己是谁都忘了。唯一需要注意的是：独立不是凡事都得自己扛，偶尔相信一个值得的人，并不会让你输掉人生。"},
+  ducuique:{name:"杜翠雀",type:"野心谋局型人格",tags:["目标感","竞争","敏锐","胜负心"],fun:"事业心开了八倍速",pos:"不甘于现状，渴望改变自己的位置；目标越明确，行动越有方向。",core:"有野心、竞争意识强，善于观察机会。她的故事也体现了当目标压过底线时，野心可能变成危险的执念。",love:"容易把喜欢、认可与被选择联系在一起，既渴望亲密，也在意自己是不是那个赢的人。",work:"目标导向，重视上升空间，善于发现机会。",weak:"太想证明自己时，容易忽略长期信任与行为底线；把一次失败看成整个人生的失败。",copy:"你不是没有野心，你是连休息的时候都觉得自己是不是落后了。别人说随缘，你心里已经列好了三年计划、五个备选方案和一个绝不告诉别人的终极目标。你的冲劲确实能带你走得很远，但别把所有人都当竞争对手。真正厉害的人，不只知道怎么赢，也知道哪些东西不值得拿来交换。"},
+  xueguihua:{name:"薛桂花",type:"温暖守护型人格",tags:["善良","忠诚","担当","保护欲"],fun:"全队指定家长",pos:"不一定最会说漂亮话，却愿意在别人最需要帮助时站出来。",core:"朴实、坚韧、重情义，愿意用实际行动保护重要的人。",love:"看重陪伴、责任和患难中的支持。比起浪漫承诺，更相信日复一日的照顾。",work:"踏实可靠，善于照顾团队、处理具体问题。",weak:"容易把别人的需求放在自己前面，甚至觉得自己吃苦是理所当然。",copy:"你可能不是朋友圈里最会讲道理的人，却往往是别人出事后第一个被想起来的人。你会记得朋友不吃什么，会在别人嘴硬说没事时多问一句，也会默默把麻烦处理好。你是很多人的安全感来源。不过请记住，你不是全天候免费客服。照顾别人很重要，照顾自己也不是自私。"},
+  hanliang:{name:"韩粱",type:"深情务实型人格",tags:["专一","行动","上进","克制"],fun:"深情不打烊，人生继续营业",pos:"愿意认真对待感情，也能在现实受挫后继续走自己的路。",core:"踏实、上进、重情义，愿意通过学习和行动改变处境。面对感情挫折，倾向于把精力重新放回人生目标。",love:"认真、长情，喜欢一个人时愿意付出，但也需要学会接受并非所有感情都能如愿。",work:"靠能力积累机会，重视长期发展，不太依赖投机取巧。",weak:"容易把忍耐当作成熟，把遗憾独自消化；有时过于执着于只要努力就能改变一切。",copy:"你是那种失恋以后会难过，但第二天还是照常上班、学习、努力生活的人。你不会轻易否定过去的真心，也不愿让一次遗憾毁掉整个人生。你最大的优点，是对感情认真、对未来负责；你的难题，是总觉得自己再努力一点，就能把所有事情都挽回来。记住，认真爱过不是失败，继续向前也不是背叛过去。"},
+  linxiuwan:{name:"林绣芄",type:"敏感成长型人格",tags:["感性","在意评价","情感需求","成长"],fun:"对方少回一个字，我能分析一晚上",pos:"对周围人的态度比较敏感，容易被关系影响，但也有机会在经历中逐渐认清自己。",core:"感受力强，重视亲近之人的评价。遇到不确定的事情，容易反复琢磨别人的话。",love:"希望被重视、被肯定，容易因为对方的态度变化而患得患失。",work:"在氛围友好、反馈清晰的团队中更容易发挥；受到鼓励时，往往更有动力。",weak:"容易把别人的冷淡理解成自己的问题，也可能为了获得认可而改变原本的想法。",copy:"你不是想太多，你只是大脑的情绪分析系统配置得特别齐全。对方一句嗯，你能推演出三种态度、五种原因和八个可能的结局。但别忘了，别人不高兴未必是你的错，别人不回复也不等于你不重要。你真正的成长，不是变得毫不在乎，而是终于能够在意别人，同时不丢掉自己。"},
+  yuchan:{name:"玉蝉",type:"环境观察型人格",tags:["谨慎","适应力","观察","风险意识"],fun:"全场还没开口，你已经看完局势了",pos:"不急于出头，先观察环境和规则，再决定怎么行动。",core:"谨慎细心，懂得根据环境调整自己的行为。面对陌生人和复杂局面，会先判断是否安全。",love:"不轻易交出信任，更希望通过长期相处确认对方是否可靠。",work:"擅长观察团队氛围、发现潜在风险、适应不同的工作方式。",weak:"过度谨慎可能导致犹豫不决；总在观察别人，却忘了主动表达自己的需求。",copy:"你进一个新群，别人忙着打招呼，你已经默默搞清楚谁最靠谱、谁爱甩锅、谁说话需要打八折。你不是胆小，只是习惯先确认地形再出发。你的观察力是优势，但也别把人生过成一场永不结束的风险评估。有时候，不必等到百分之百确定，也可以勇敢迈出第一步。"},
+  linxiulai:{name:"林绣莱",type:"温柔觉醒型人格",tags:["温和","忍耐","边界","独立"],fun:"嘴上说都行，心里已经开庭三次",pos:"习惯顾及别人，但内心并不愿意永远退让；成长的关键是学会为自己作决定。",core:"温和、顾全大局，容易考虑周围人的感受。遇到冲突时通常先忍耐，等到想清楚后才会表达立场。",love:"希望关系稳定和谐，愿意为伴侣着想，但也需要学习分辨包容与委屈自己的区别。",work:"合作意识强，愿意配合团队；当边界清晰时，能够成为稳定的协作者。",weak:"容易把大家都满意当作自己的责任，直到忍无可忍才一次性爆发。",copy:"你经常说没关系、都可以、你决定就好，但你的内心并不是真的没有想法。你只是太习惯让别人舒服，偶尔连自己都排到了最后。好消息是，你不需要突然变成一个强势的人才能改变生活。学会说一次不，表达一次真实想法，就是成长的开始。温柔可以保留，边界也应该拥有。"},
+  xiaolian:{name:"小莲",type:"快乐生活型人格",tags:["知足","松弛","日常幸福","随和"],fun:"人生 KPI：按时吃饭，准时下班",pos:"不一定非要赢过所有人，更愿意珍惜生活里实实在在的小快乐。",core:"重视当下体验，不愿把每一天都过成竞争。能够从日常生活中寻找乐趣。",love:"比起惊天动地的浪漫，更喜欢舒服、自然、能一起吃饭聊天的关系。",work:"喜欢目标明确、氛围友好、生活与工作相对平衡的环境。",weak:"有时容易回避长期规划，遇到困难可能先想着躲一躲再说。",copy:"别人忙着逆袭、升职、成为人生赢家，你先确认今天有没有好好吃饭。你并不是没有追求，只是知道人生不应该只有成绩单。能睡个好觉、和喜欢的人说说话、周末吃一顿满意的饭，对你而言都是值得认真对待的幸福。唯一要注意的是，松弛不等于逃避。该面对的问题，还是要找个合适的日子处理掉——不能一直等到下辈子。"},
+  gantang:{name:"甘棠",type:"自我觉醒型人格",tags:["尊严","独立意识","自我认同","选择权"],fun:"我的人生，不接受代写",pos:"不愿永远按照别人的期待生活，逐渐学会表达真实的自己。",core:"重视自我价值，不希望被身份、环境或他人的评价限制。面对不公平时，内心有争取改变的动力。",love:"希望得到平等的尊重，而不是仅仅被需要。真正的亲密关系应该让双方都能做自己。",work:"希望自己的努力被看见，也需要一定的自主空间。",weak:"过于在意别人是否尊重自己时，可能把普通的意见分歧也理解成否定。",copy:"你的人生可能经历过太多别人觉得你应该怎样，所以你越来越想知道自己真正想要什么。你不一定总是最勇敢的那个，但你正在学会不再把选择权全部交给别人。你可以听取建议，可以暂时妥协，但最终的人生方向应该由你自己决定。友情提醒：不必为了证明自己独立，就拒绝所有帮助。接受善意，也是一种自由。"},
+  linxiushu:{name:"林绣菽",type:"稳健自持型人格",tags:["谨慎","秩序感","稳妥","风险控制"],fun:"人生信条：能稳定运行，就别随便更新",pos:"相比冒险和出风头，更倾向于在现有条件下寻找稳妥的解决办法。",core:"偏稳健、重视秩序的人格类型。比起突然改变一切，更倾向于先了解情况，再做选择。",love:"偏好稳定、可靠、说到做到的关系。比起短暂的激情，更看重长期相处是否安心。",work:"擅长按步骤完成任务，重视流程和细节。",weak:"过度追求稳妥时，容易错过机会；有时因为害怕出错，而不敢尝试新的方法。",copy:"你可能不是那个一拍桌子就要改变世界的人，但你很可能是团队里确保事情不会乱成一团的人。别人想一步登天，你先检查楼梯有没有装好；别人准备临时起意，你已经想到了三个风险预案。你的稳健是优势，但人生也不是每次更新都需要等到绝对安全。偶尔允许自己试错，你会发现，有些好机会本来就不会提前通知你。"}
 };
 
-/* ========== 题目与加分规则 ========== */
-const QUESTIONS = [
-  {
-    text:"老板突然把一个根本不该你干的烂摊子甩给你，你的第一反应是？",
-    options:[
-      { text:"先接下来，默默搞清楚怎么回事再说", scores:{xulanxiang:3, yuchan:2} },
-      { text:"直接问清楚凭什么是我", scores:{zhaoxingtang:3, ducuique:1} },
-      { text:"表面答应，心里已经开始算怎么反制", scores:{ducuique:3, linxiulai:1} },
-      { text:"私下找人打听这是谁在搞鬼", scores:{yuchan:3, linxiuwan:1} }
-    ]
-  },
-  {
-    text:"你暗恋的人突然和别人在一起了，你会？",
-    options:[
-      { text:"不纠缠，用行动证明自己更好", scores:{hanliang:3, linjinqi:1} },
-      { text:"算了，我本来就配不上", scores:{xueguihua:3, linxiulai:2} },
-      { text:"凭什么？我哪里不如那个人", scores:{ducuique:3, zhaoxingtang:2} },
-      { text:"表面上祝福，心里已经翻篇", scores:{linjinqi:3, xiaolian:1} }
-    ]
-  },
-  {
-    text:"你被当众羞辱了，你？",
-    options:[
-      { text:"不反驳，等对方说完，记住这个人", scores:{xulanxiang:3, linxiushu:2} },
-      { text:"当场怼回去，谁怕谁", scores:{zhaoxingtang:3, ducuique:1} },
-      { text:"笑着说没关系，心里记一笔", scores:{linxiulai:3, ducuique:2} },
-      { text:"旁边有人看不下去替我出头", scores:{linxiuwan:2, xueguihua:2} }
-    ]
-  },
-  {
-    text:"你发现自己被最信任的人利用了，你会？",
-    options:[
-      { text:"不说话，但再也不给这个人任何机会", scores:{linjinqi:3, linxiushu:2} },
-      { text:"直接翻脸，把话挑明", scores:{zhaoxingtang:3, gantang:1} },
-      { text:"假装不知道，然后找机会反击", scores:{ducuique:3, yuchan:1} },
-      { text:"哭一场然后自己消化", scores:{linxiuwan:3, xueguihua:1} }
-    ]
-  },
-  {
-    text:"朋友半夜找你借钱，说急用，你会？",
-    options:[
-      { text:"先问清楚什么事，能帮就帮", scores:{xueguihua:3, hanliang:2} },
-      { text:"直接转，朋友不用多问", scores:{xueguihua:3, xiaolian:2} },
-      { text:"借可以，但要说清楚什么时候还", scores:{zhaoxingtang:3, linxiushu:2} },
-      { text:"委婉拒绝，我自己也不宽裕", scores:{yuchan:3, linxiulai:1} }
-    ]
-  },
-  {
-    text:"你的人生优先级排序，最接近哪个？",
-    options:[
-      { text:"先站稳脚跟，再谈其他", scores:{xulanxiang:3, linxiushu:2} },
-      { text:"事业和钱最重要，其他随缘", scores:{zhaoxingtang:3, ducuique:2} },
-      { text:"身边人过得好，我就踏实", scores:{xueguihua:3, linxiulai:2} },
-      { text:"开心最重要，别把自己逼太紧", scores:{xiaolian:3, linxiuwan:1} }
-    ]
-  },
-  {
-    text:"遇到一个完全陌生的复杂局面，你第一步会？",
-    options:[
-      { text:"先观察，搞清楚谁是谁、规则是什么", scores:{yuchan:3, xulanxiang:2} },
-      { text:"直接上手试，边做边调整", scores:{ducuique:3, xiaolian:1} },
-      { text:"找有经验的人问清楚再动", scores:{linxiushu:3, hanliang:2} },
-      { text:"先想清楚最坏结果，再决定要不要参与", scores:{linjinqi:3, zhaoxingtang:1} }
-    ]
-  },
-  {
-    text:"别人对你的评价，你最在意哪一句？",
-    options:[
-      { text:"“你这个人很靠谱。”", scores:{linjinqi:3, linxiushu:2} },
-      { text:"“你很有本事，没人敢小看你。”", scores:{ducuique:3, zhaoxingtang:2} },
-      { text:"“你人真好，总是替别人着想。”", scores:{xueguihua:3, linxiulai:2} },
-      { text:"“你活得很明白，知道自己要什么。”", scores:{gantang:3, xulanxiang:2} }
-    ]
-  },
-  {
-    text:"如果给你一次重新选择人生的机会，你会？",
-    options:[
-      { text:"还选现在这条路，但走得更聪明一点", scores:{xulanxiang:3, hanliang:2} },
-      { text:"选一条完全不同的路，试试别的可能", scores:{gantang:3, ducuique:1} },
-      { text:"不选了，现在这样就挺好", scores:{xiaolian:3, linxiushu:1} },
-      { text:"选一条更稳的路，少走点弯路", scores:{linxiushu:3, yuchan:2} }
-    ]
-  },
-  {
-    text:"你觉得自己最像哪句话？",
-    options:[
-      { text:"“我可以忍，但我不会一直忍。”", scores:{xulanxiang:3, linxiulai:2} },
-      { text:"“我不需要谁给我安全感，我自己给。”", scores:{zhaoxingtang:3, gantang:2} },
-      { text:"“我对你好，是因为你值得，不是因为我欠你。”", scores:{xueguihua:3, hanliang:2} },
-      { text:"“人生苦短，先吃顿好的再说。”", scores:{xiaolian:3, linxiuwan:1} }
-    ]
-  }
+var QUESTIONS = [
+  {text:"沈家被诬谋反，林府派人送来退婚书。你（沈嘉兰）怎么办？",options:[
+    {text:"不哭不闹，先活下来，身份以后再想办法",scores:{xulanxiang:3,yuchan:2}},
+    {text:"当面问来使：林家这么做，不怕旁人议论吗？",scores:{zhaoxingtang:3,gantang:1}},
+    {text:"记下送信人的脸，这个人以后有用",scores:{ducuique:3,linxiushu:1}},
+    {text:"母亲让我活着，我就活着，其他的事以后再说",scores:{xueguihua:2,hanliang:1}}
+  ]},
+  {text:"入林府做三等丫鬟后，你无意间发现经书里藏着大奶奶的假账。你会？",options:[
+    {text:"装作什么都没看见，继续烧水",scores:{xulanxiang:3,yuchan:2}},
+    {text:"找机会告诉大爷林锦岐",scores:{linjinqi:3,hanliang:1}},
+    {text:"把内容记住，以后说不定能用上",scores:{ducuique:3,linxiuwan:2}},
+    {text:"心里害怕，但更担心这事会连累自己",scores:{linxiuwan:3,linxiulai:1}}
+  ]},
+  {text:"吕蕺儿抢着给大爷献茶、邀功出风头。作为同屋，你？",options:[
+    {text:"私下提醒她：这府里水深，别把自己当靶子",scores:{xulanxiang:3,xueguihua:2}},
+    {text:"不关我的事，各人各命",scores:{linjinqi:1,linxiushu:3}},
+    {text:"学她，说不定我也能出头",scores:{ducuique:3,xiaolian:1}},
+    {text:"替她担心，但不敢开口",scores:{linxiuwan:2,linxiulai:2}}
+  ]},
+  {text:"赵星棠栽赃吕蕺儿偷窃，要对她用刑。你看到了，怎么办？",options:[
+    {text:"打破花瓶制造声响，提醒她搬律法保命",scores:{xulanxiang:3,xueguihua:1}},
+    {text:"默默退出去，这事我管不了",scores:{linxiushu:3,yuchan:1}},
+    {text:"在心里默默分析：大奶奶这步棋想干什么",scores:{ducuique:3,linxiuwan:2}},
+    {text:"替她求情，哪怕自己挨罚",scores:{xueguihua:3,gantang:1}}
+  ]},
+  {text:"小莲告诉你，她不想给大爷做侍妾，只想堂堂正正嫁人。你听完？",options:[
+    {text:"想起亡妹，心里酸涩，但她说得对",scores:{xulanxiang:3,hanliang:1}},
+    {text:"帮她想办法，哪怕是托关系也要让她如愿",scores:{xueguihua:3,gantang:2}},
+    {text:"侍妾也是一条路，看她自己怎么选",scores:{zhaoxingtang:3,linxiushu:1}},
+    {text:"我连自己的事都管不了，哪有本事管别人",scores:{linxiuwan:3,linxiulai:1}}
+  ]},
+  {text:"杜翠雀在洗澡水里投毒，玉蝉和四小姐中毒。你发现了，怎么处理？",options:[
+    {text:"以其人之道还治其人之身，用毒水煮茶送回去",scores:{xulanxiang:3,ducuique:1}},
+    {text:"先告诉林母，让当家的人做决定",scores:{linjinqi:3,linxiushu:2}},
+    {text:"假装不知，但暗中收集证据，等时机成熟再发",scores:{ducuique:3,linxiuwan:2}},
+    {text:"先救中毒的人，投毒的事之后再说",scores:{xueguihua:3,hanliang:1}}
+  ]},
+  {text:"林府被封，四小姐疑似染疫。你是府里的人，你？",options:[
+    {text:"先想最坏结果，再安排退路",scores:{linjinqi:3,zhaoxingtang:1}},
+    {text:"观察是谁在借疫病做文章",scores:{yuchan:3,xulanxiang:2}},
+    {text:"不管那么多，先照顾病人",scores:{xueguihua:3,xiaolian:1}},
+    {text:"分析局面，等关键人回来处理",scores:{linxiushu:3,gantang:1}}
+  ]},
+  {text:"赐婚圣旨下来，林锦岐强娶你。大婚当天，你？",options:[
+    {text:"当众打他一巴掌，把当年的委屈打回去",scores:{zhaoxingtang:3,gantang:2}},
+    {text:"沉默行礼，但心里不会轻易原谅",scores:{xulanxiang:3,linxiulai:1}},
+    {text:"既然已成事实，先看看他到底想干什么",scores:{yuchan:3,ducuique:1}},
+    {text:"大喜的日子，先过好今天再说",scores:{xiaolian:3,linxiuwan:1}}
+  ]},
+  {text:"赵星棠拿出林锦岐谋反的证据交给你，说拿着这个以后有依靠。你？",options:[
+    {text:"不接，转身把证据烧了",scores:{xulanxiang:3,gantang:1}},
+    {text:"接过来，但心里知道该怎么处理",scores:{ducuique:3,zhaoxingtang:1}},
+    {text:"先问清楚她为什么要这么做",scores:{yuchan:3,linxiushu:2}},
+    {text:"我不想要，但我也不知道该不该拒绝",scores:{linxiulai:3,linxiuwan:1}}
+  ]},
+  {text:"你觉得自己最像哪句话？",options:[
+    {text:"我可以忍，但我不会一直忍。",scores:{xulanxiang:3,linxiulai:2}},
+    {text:"我不需要谁给我安全感，我自己给。",scores:{zhaoxingtang:3,gantang:2}},
+    {text:"我对你好，是因为你值得，不是因为我欠你。",scores:{xueguihua:3,hanliang:2}},
+    {text:"人生苦短，先吃顿好的再说。",scores:{xiaolian:3,linxiuwan:1}}
+  ]},
+  {text:"如果人生可以重来一次，你最想改变什么？",options:[
+    {text:"我希望沈家不做那个刚烈的选择",scores:{xulanxiang:3,hanliang:2}},
+    {text:"我希望当年不退婚，不娶赵星棠",scores:{linjinqi:3,zhaoxingtang:1}},
+    {text:"我希望我能更早学会不靠别人",scores:{gantang:3,zhaoxingtang:2}},
+    {text:"我希望一切都没变，家人还在",scores:{xueguihua:3,xiaolian:1}}
+  ]},
+  {text:"林锦岐问你：当年沈家出事，你恨林家吗？你？",options:[
+    {text:"恨过，但比起恨，我更想活着把事查清楚",scores:{xulanxiang:3,gantang:1}},
+    {text:"不恨。恨太累了，我要把力气花在值得的地方",scores:{linxiulai:3,xiaolian:1}},
+    {text:"恨。但我不会让恨毁了我自己的日子",scores:{zhaoxingtang:3,hanliang:1}},
+    {text:"不恨你们，但也不会再轻易信你们",scores:{yuchan:3,linxiushu:2}}
+  ]},
+  {text:"杜翠雀假死逃出林府，几年后以海上商帮的身份回来。你听说后？",options:[
+    {text:"她果然不是一般人，我早看出来了",scores:{yuchan:3,linxiuwan:1}},
+    {text:"有点佩服，换我未必有那个魄力",scores:{ducuique:3,gantang:1}},
+    {text:"她走的路太险，我不会学她",scores:{linxiushu:3,linjinqi:1}},
+    {text:"我第一反应是：她回来想干什么",scores:{ducuique:2,xulanxiang:2}}
+  ]},
+  {text:"如果有一天你不用再为生存发愁，你最想做的事是？",options:[
+    {text:"找个安静地方，把想看没看的书都看一遍",scores:{xulanxiang:2,linxiushu:2}},
+    {text:"带家人过安稳日子，谁也别再受苦",scores:{xueguihua:3,hanliang:1}},
+    {text:"开个铺子做点小生意，日子过得去就行",scores:{xiaolian:3,linxiulai:1}},
+    {text:"继续往上走，站到没人能随便安排我的位置",scores:{gantang:3,ducuique:2}}
+  ]}
 ];
 
-/* ========== 逻辑 ========== */
-let current = 0;
-let answers = [];
+var current = 0;
+var answers = [];
 
 function startQuiz(){
   document.getElementById("startPage").classList.add("hidden");
   document.getElementById("quizPage").classList.remove("hidden");
-  current = 0; answers = [];
+  current = 0;
+  answers = [];
   renderQuestion();
 }
 
 function renderQuestion(){
-  const q = QUESTIONS[current];
-  document.getElementById("qNum").textContent = `第 ${current+1} / ${QUESTIONS.length} 题`;
+  var q = QUESTIONS[current];
+  document.getElementById("qNum").textContent = "第 " + (current+1) + " / " + QUESTIONS.length + " 题";
   document.getElementById("qText").textContent = q.text;
-  const box = document.getElementById("options");
+  var box = document.getElementById("options");
   box.innerHTML = "";
-  q.options.forEach((opt, i) => {
-    const btn = document.createElement("button");
+  for (var i = 0; i < q.options.length; i++){
+    var btn = document.createElement("button");
     btn.className = "opt";
-    btn.textContent = opt.text;
-    btn.onclick = () => selectOption(i);
+    btn.textContent = q.options[i].text;
+    btn.setAttribute("data-idx", i);
+    btn.onclick = function(){
+      selectOption(parseInt(this.getAttribute("data-idx")));
+    };
     box.appendChild(btn);
-  });
+  }
   document.getElementById("progressBar").style.width = (current / QUESTIONS.length * 100) + "%";
 }
 
 function selectOption(i){
   answers[current] = i;
-  const btns = document.querySelectorAll(".opt");
-  btns.forEach((b, idx) => b.classList.toggle("selected", idx === i));
-  setTimeout(() => {
+  var btns = document.querySelectorAll(".opt");
+  for (var j = 0; j < btns.length; j++){
+    btns[j].className = (j === i) ? "opt selected" : "opt";
+  }
+  setTimeout(function(){
     if (current < QUESTIONS.length - 1){
       current++;
       renderQuestion();
@@ -394,25 +369,48 @@ function selectOption(i){
 }
 
 function showResult(){
-  // 统计得分
-  const scores = {};
-  Object.keys(CHARACTERS).forEach(k => scores[k] = 0);
-  answers.forEach((ansIdx, qIdx) => {
-    const sc = QUESTIONS[qIdx].options[ansIdx].scores;
-    for (const k in sc) scores[k] += sc[k];
-  });
-  // 找最高分（平局时看最后一题倾向）
-  let max = -1, winner = null;
-  const lastScores = QUESTIONS[QUESTIONS.length-1].options[answers[answers.length-1]].scores;
-  for (const k in scores){
-    if (scores[k] > max || (scores[k] === max && lastScores[k])){
-      max = scores[k]; winner = k;
+  var scores = {};
+  var keys = Object.keys(CHARACTERS);
+  for (var i = 0; i < keys.length; i++) scores[keys[i]] = 0;
+
+  for (var q = 0; q < answers.length; q++){
+    var sc = QUESTIONS[q].options[answers[q]].scores;
+    for (var k in sc){
+      if (scores[k] !== undefined) scores[k] += sc[k];
     }
   }
-  const c = CHARACTERS[winner];
+
+  var scoreList = [];
+  for (var i2 = 0; i2 < keys.length; i2++){
+    scoreList.push({ key: keys[i2], score: scores[keys[i2]] });
+  }
+  scoreList.sort(function(a, b){ return b.score - a.score; });
+
+  var winner = scoreList[0].key;
+  if (scoreList.length > 1 && scoreList[0].score === scoreList[1].score){
+    var lastScores = QUESTIONS[QUESTIONS.length - 1].options[answers[answers.length - 1]].scores;
+    var maxScore = scoreList[0].score;
+    var tied = [];
+    for (var i3 = 0; i3 < scoreList.length; i3++){
+      if (scoreList[i3].score === maxScore) tied.push(scoreList[i3].key);
+    }
+    for (var i4 = 0; i4 < tied.length; i4++){
+      if (lastScores[tied[i4]]){ winner = tied[i4]; break; }
+    }
+  }
+
+  var c = CHARACTERS[winner];
+  if (!c) { alert("匹配出错，请重试"); return; }
+
   document.getElementById("rName").textContent = c.name;
   document.getElementById("rType").textContent = c.type;
-  document.getElementById("rTags").innerHTML = c.tags.map(t => `<span class="tag">${t}</span>`).join("");
+
+  var tagHtml = "";
+  for (var t = 0; t < c.tags.length; t++){
+    tagHtml += '<span class="tag">' + c.tags[t] + '</span>';
+  }
+  document.getElementById("rTags").innerHTML = tagHtml;
+
   document.getElementById("rFun").textContent = c.fun;
   document.getElementById("rPos").textContent = c.pos;
   document.getElementById("rCore").textContent = c.core;
@@ -425,6 +423,8 @@ function showResult(){
   document.getElementById("resultPage").classList.remove("hidden");
   window.scrollTo(0,0);
 }
+
+document.getElementById("startBtn").onclick = startQuiz;
 </script>
 </body>
 </html>
